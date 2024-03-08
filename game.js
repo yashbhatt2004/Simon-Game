@@ -9,8 +9,8 @@ function playSound(color) {
 }
 
 function nextSequence() {
-    score++;
     $("#score-title").text("Score " + score);
+    score++;
 
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColour = buttonColours[randomNumber];
@@ -29,8 +29,10 @@ function animateClick(color) {
 }
 
 function gameStart() {
-    $("body").one("keydown", function () {
+    score=0;
+    $("body").on("keydown", function () {
         nextSequence();
+        $("body").off();
     })
 }
 function gameOver() {
@@ -41,8 +43,8 @@ function gameOver() {
     setTimeout(function(){
         $("body").removeClass("game-over")
     },100)
-    score=0;
     gamePattern.length=0;
+    userClickedPattern.length=0;
     gameStart();
 }
 function checkPattern(gamePattern, userClickedPattern,userChosenColor) {
